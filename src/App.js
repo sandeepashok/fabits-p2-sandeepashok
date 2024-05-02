@@ -1,15 +1,17 @@
 import styled from "@emotion/styled/macro";
 import NavBar from "./components/NavBar";
+import HomePage from "./pages/HomePage";
 
 const AppContainer = styled.div`
-  display: grid;
-  grid-template-columns: 296px auto;
+  display: flex;
+  position: relative;
 `
 
 function App() {
   return (
     <AppContainer>
       <NavBar />
+      <HomePage />
     </AppContainer>
   );
 }
