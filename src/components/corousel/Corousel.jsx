@@ -7,7 +7,6 @@ import vacation from "../../assets/corousel/vacation.svg";
 import left from "../../assets/corousel/corousel-nav.svg";
 import right from "../../assets/corousel/corousel-nav2.svg";
 import CorouselCard from "./CorouselCard";
-import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useRef, useState } from "react";
 
 const CorouselContainer = styled.div`
@@ -71,29 +70,37 @@ const BgImage = styled.img`
   height: 110px;
 `
 const CorouselArrowContainerLeft = styled.div`
-  position: absolute;
-  left: 0;
-  padding: 0 16px;
-  margin-top: 30px;
-  height: 160px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgb(255,255,255);
-  background: linear-gradient(270deg, rgb(255 255 255 / 7%) 0%, rgb(255 255 255 / 91%) 80%);
+  display: none;
+
+  @media (min-width: 769px) {
+    position: absolute;
+    left: 0;
+    padding: 0 16px;
+    margin-top: 30px;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(255,255,255);
+    background: linear-gradient(270deg, rgb(255 255 255 / 7%) 0%, rgb(255 255 255 / 91%) 80%);
+  }
+
 `
 
 const CorouselArrowContainerRight = styled.div`
-  position: absolute;
-  right: 0;
-  padding: 0 16px;
-  margin-top: 30px;
-  height: 160px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgb(255,255,255);
-  background: linear-gradient(90deg, rgb(255 255 255 / 7%) 0%, rgb(255 255 255 / 91%) 80%);
+  display: none;
+  @media (min-width: 769px) {
+    position: absolute;
+    right: 0;
+    padding: 0 16px;
+    margin-top: 30px;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(255,255,255);
+    background: linear-gradient(90deg, rgb(255 255 255 / 7%) 0%, rgb(255 255 255 / 91%) 80%);
+  }
 `
 
 const CorouselArrowBtn = styled.button`
@@ -115,72 +122,86 @@ const corouselPlanCards = [
   {
     image: retirement,
     name: "Retirement",
-    desc: "Your old age, taken care of"
+    desc: "Your old age, taken care of",
+    id: 0
   },
   {
     image: emergency,
     name: "Emergency",
-    desc: "Be prepared at all times"
+    desc: "Be prepared at all times",
+    id: 1
   },
   {
     image: wedding,
     name: "Wedding",
-    desc: "Plan your dream wedding today"
+    desc: "Plan your dream wedding today",
+    id: 2
   },
   {
     image: vacation,
     name: "Vacation",
-    desc: "Never too late for the Bahamas!"
+    desc: "Never too late for the Bahamas!",
+    id: 3
   },
   {
     image: retirement,
     name: "Education",
-    desc: "Build your career, tension-free"
+    desc: "Build your career, tension-free",
+    id: 4
   },
   {
     image: retirement,
     name: "Education",
-    desc: "Build your career, tension-free"
+    desc: "Build your career, tension-free",
+    id: 5
   },
   {
     image: retirement,
     name: "Education",
-    desc: "Build your career, tension-free"
+    desc: "Build your career, tension-free",
+    id: 6
   },
   {
     image: retirement,
     name: "Education",
-    desc: "Build your career, tension-free"
+    desc: "Build your career, tension-free",
+    id: 7
   },
   {
     image: retirement,
     name: "Education",
-    desc: "Build your career, tension-free"
+    desc: "Build your career, tension-free",
+    id: 8
   },
   {
     image: retirement,
     name: "Education",
-    desc: "Build your career, tension-free"
+    desc: "Build your career, tension-free",
+    id: 9
   },
   {
     image: retirement,
     name: "Education",
-    desc: "Build your career, tension-free"
+    desc: "Build your career, tension-free",
+    id: 10
   },
   {
     image: retirement,
     name: "Education",
-    desc: "Build your career, tension-free"
+    desc: "Build your career, tension-free",
+    id: 11
   },
   {
     image: retirement,
     name: "Education",
-    desc: "Build your career, tension-free"
+    desc: "Build your career, tension-free",
+    id: 12
   },
   {
     image: retirement,
     name: "Education",
-    desc: "Build your career, tension-free"
+    desc: "Build your career, tension-free",
+    id: 13
   },
 ]
 
@@ -206,28 +227,29 @@ const Corousel = () => {
   const handleLeftArrow = () => {
     let container = cardContainer.current
     if (container) {
-      const scrollAmount = container.clientWidth;
       container.scrollTo({
-        left: container.scrollLeft - scrollAmount,
+        left: container.scrollLeft - 352,
         behavior: "smooth"
       });
+      setIsCorouselInfoVisible(container.scrollLeft === 0)
     }
   }
 
   const handleRightArrow = () => {
     let container = cardContainer.current
     if (container) {
-      const scrollAmount = container.clientWidth;
       container.scrollTo({
-        left: container.scrollLeft + scrollAmount,
+        left: container.scrollLeft + 352,
         behavior: "smooth"
       });
     }
     setIsCorouselInfoVisible(false)
   }
 
-  const handleCardClick = () => {
-    setIsCorouselInfoVisible(false)
+  const handleCardClick = (index) => {
+    if (index === 0) {
+      setIsCorouselInfoVisible(!isCorouselInfoVisible)
+    }
   }
 
   const handleScroll = () => {
@@ -247,7 +269,7 @@ const Corousel = () => {
         </BgImgContainer>
       </CorouselInfo> : <></>}
       <CorouselCardsContainer ref={cardContainer} onScroll={handleScroll}>
-        {corouselPlanCards.map(cardInfo => <CorouselCardExtContainer key={uuidv4()} onClick={handleCardClick}>
+        {corouselPlanCards.map((cardInfo, i) => <CorouselCardExtContainer key={cardInfo.id} onClick={() => handleCardClick(i)}>
           <CorouselCard cardInfo={cardInfo} />
         </CorouselCardExtContainer>)}
       </CorouselCardsContainer>

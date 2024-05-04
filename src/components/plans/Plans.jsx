@@ -106,7 +106,16 @@ const PlanCardsContainer = styled.div`
   gap: 24px;
   padding: 24px 0;
   place-self: center;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
+  @media (max-width: 1870px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: 1512px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 1152px) {
+    grid-template-columns: 1fr;
+  }
 `
 const PaginationIndicatorsContainer = styled.div`
   display: flex;

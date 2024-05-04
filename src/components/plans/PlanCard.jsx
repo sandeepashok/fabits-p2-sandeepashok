@@ -8,8 +8,9 @@ const PlanCardContainer = styled.div`
   border-radius: 24px;
   border: 1px solid #D3DBEC;
   cursor: pointer;
+  transition: box-shadow 0.3s ease;
   &:hover{
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    box-shadow: 0px 4px 8px rgba(36, 47, 78, 0.12);
   }
 `
 const NameAndDpContainer = styled.div`

@@ -9,8 +9,12 @@ const CorouselCardContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: box-shadow 0.3s ease;
   &:hover{
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    height: 159px;
+    width: 159px;
+    border: 1px solid #D3DBEC;
+    box-shadow: 0px 4px 8px rgba(36, 47, 78, 0.12);
   }
 `
 
@@ -40,9 +44,9 @@ const url = "https://www.linkedin.com/in/sandeepashok"
 const CorouselCard = ({ cardInfo: { image, name, desc } }) => {
 
   return (
-    <CorouselCardContainer onClick={() => { window.open(url, '_blank') }}>
+    <CorouselCardContainer>
       <CardInnerContainer>
-        <PlanImg src={image} />
+        <PlanImg src={image} onClick={() => { window.open(url, '_blank') }} />
         <PlanName>{name}</PlanName>
         <PlanDesc>{desc}</PlanDesc>
       </CardInnerContainer>
