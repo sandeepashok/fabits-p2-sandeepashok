@@ -1,5 +1,5 @@
 import styled from "@emotion/styled/macro";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/navbar/NavBar";
 import HomePage from "./pages/HomePage";
 
 const AppContainer = styled.div`

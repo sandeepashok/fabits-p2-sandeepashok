@@ -1,5 +1,6 @@
 import styled from "@emotion/styled/macro"
-import Corousel from "../components/Corousel";
+import Corousel from "../components/corousel/Corousel";
+import Plans from "../components/plans/Plans";
 
 const HomeContainer = styled.div`
   display: flex;
@@ -13,6 +14,7 @@ const HomePage = () => {
   return (
     <HomeContainer>
       <Corousel />
+      <Plans />
     </HomeContainer>
   )
 }

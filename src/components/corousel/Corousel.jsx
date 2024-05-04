@@ -1,11 +1,11 @@
-import noteStack from "../assets/corousel/note-stack-add.svg";
+import noteStack from "../../assets/corousel/note-stack-add.svg";
 import styled from "@emotion/styled/macro";
-import retirement from "../assets/corousel/old.svg";
-import emergency from "../assets/corousel/emergency.svg";
-import wedding from "../assets/corousel/wedding.svg";
-import vacation from "../assets/corousel/vacation.svg";
-import left from "../assets/corousel/corousel-nav.svg";
-import right from "../assets/corousel/corousel-nav2.svg";
+import retirement from "../../assets/corousel/old.svg";
+import emergency from "../../assets/corousel/emergency.svg";
+import wedding from "../../assets/corousel/wedding.svg";
+import vacation from "../../assets/corousel/vacation.svg";
+import left from "../../assets/corousel/corousel-nav.svg";
+import right from "../../assets/corousel/corousel-nav2.svg";
 import CorouselCard from "./CorouselCard";
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useRef, useState } from "react";
@@ -13,7 +13,7 @@ import { useEffect, useRef, useState } from "react";
 const CorouselContainer = styled.div`
   height: 224px;
   min-width: 300px;
-  margin: 48px 48px 24px 48px;
+  margin: 48px 48px 0px 48px;
   padding: 16px 0;
   border-radius: 32px;
   background-color: #FFFFFF;
