@@ -1,5 +1,7 @@
 import styled from '@emotion/styled/macro'
 import { ReactComponent as FilterIcon } from '../../assets/plans/filter-alt.svg'
+import { ReactComponent as ArrowRight } from '../../assets/plans/arrow-right.svg'
+import { ReactComponent as ArrowLeft } from '../../assets/plans/arrow-left.svg'
 import dropdownArrowSVG from '../../assets/plans/arrow-drop-down.svg'
 import search from '../../assets/plans/search.svg'
 import couple from '../../assets/plans/couple.svg'
@@ -106,8 +108,35 @@ const PlanCardsContainer = styled.div`
   place-self: center;
   grid-template-columns: 1fr 1fr 1fr;
 `
+const PaginationIndicatorsContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`
 const PaginationIndicators = styled.div`
+  min-width: 234px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+const PaginationInfo = styled.p`
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: #727272;
+;
+`
+const InfoSpan = styled.span`
+  color: #2D2D2D
+`
 
+const ArrowBtn = styled.button`
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 `
 
 const PlanCards = [
@@ -223,6 +252,13 @@ const Plans = () => {
       <PlanCardsContainer>
         {PlanCards.map(cardData => <PlanCard key={uuidv4()} cardData={cardData} />)}
       </PlanCardsContainer>
+      <PaginationIndicatorsContainer>
+        <PaginationIndicators>
+          <PaginationInfo>showing <InfoSpan>1-4</InfoSpan> of <InfoSpan>4</InfoSpan></PaginationInfo>
+          <ArrowBtn><ArrowLeft /></ArrowBtn>
+          <ArrowBtn><ArrowRight /></ArrowBtn>
+        </PaginationIndicators>
+      </PaginationIndicatorsContainer>
     </PlansContainer>
   )
 }
