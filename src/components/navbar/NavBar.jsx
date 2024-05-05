@@ -24,9 +24,13 @@ const NavbarContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  @media (max-width: 768px) {
+    display: ${({ isActive }) => isActive ? "flex" : "none"};
+    z-index: 999;
+  }
 ;
 `
-const ColapseIconContainer = styled.div`
+const ColapseIconContainer = styled.button`
   height: 36px;
   width: 36px;
   background-color: #FFFFFF;
@@ -203,10 +207,15 @@ const Heading = styled.p`
   margin: 16px 0 8px 0;
 `
 
-const NavBar = () => {
+const NavBar = ({ isMobileNavVisible, setIsMobileNavVisible }) => {
+
+  const handleCloseNavbar = () => {
+    setIsMobileNavVisible(false)
+  }
+
   return (
-    <NavbarContainer>
-      <ColapseIconContainer>
+    <NavbarContainer isActive={isMobileNavVisible}>
+      <ColapseIconContainer onClick={handleCloseNavbar}>
         <ColapseIcon />
       </ColapseIconContainer>
       <NavBarLayout>

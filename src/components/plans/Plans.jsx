@@ -14,6 +14,7 @@ import Gpointer from '../../assets/plans/good-pointer.svg'
 import Wpointer from '../../assets/plans/weak-pointer.svg'
 import Ppointer from '../../assets/plans/poor-pointer.svg'
 import Rpointer from '../../assets/plans/reached-pointer.svg'
+import { ReactComponent as FilterMobile } from '../../assets/plans/filter-mobile.svg'
 import PlanCard from './PlanCard'
 import { v4 as uuidv4 } from 'uuid';
 
@@ -26,22 +27,53 @@ const PlansContainer = styled.div`
   border: 1px solid #D3DBEC;
   display: flex;
   flex-direction: column;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin: 0;
+    margin-top: 8px;
+    padding: 0;
+    border-radius: 0;
+  }
 `
 const HeadingAndFiltersContainer = styled.div`
   display: flex;
   justify-content: space-between;
   padding-bottom: 24px;
   border-bottom: 1px solid #D3DBEC;
+  @media (max-width: 1360px) {
+    flex-direction: column;
+  }
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `
 const Heading = styled.b`
   font-size: 24px;
   font-weight: 600;
   line-height: 32px;
+  @media (max-width: 1034px) and (min-width: 364px) {
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  @media (max-width: 768px) {
+    font-size: 20px;
+    line-height: 28px;
+    margin: 24px 16px;
+  }
 `
 const FiltersAndSearchBarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 1360px) and (min-width: 1034px) {
+    justify-content: end;
+  }
+  @media (max-width: 1034px) and (min-width: 768px) {
+    justify-content: center;
+  }
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
 `
 const Filters = styled.button`
   display: flex;
@@ -57,6 +89,25 @@ const Filters = styled.button`
   & > svg {
     margin-left: 2px;
   }
+  @media (max-width: 1034px) {
+    display: none;
+  }
+`
+
+const FiltersMobile = styled.button`
+  display: none;
+  @media (max-width: 1034px) {
+    display: flex;
+    height: 40px;
+    width: 40px;
+    background-color: white;
+    border-radius: 50%;
+    margin-left: 16px;
+    & > svg {
+      border-radius: 50%;
+      background-color: transparent;
+    }
+  }
 `
 
 const SortByContainer = styled.div`
@@ -69,6 +120,9 @@ const Label = styled.label`
   line-height: 20px;
   font-weight: 400;
   color: #727272;
+  @media (max-width: 1034px) {
+    display: none;
+  }
 `
 const SortBy = styled.select`
   font-size: 14px;
@@ -80,6 +134,9 @@ const SortBy = styled.select`
   background-repeat: no-repeat;
   background-position: center right 3px;
   margin-right: 24px;
+  @media (max-width: 1034px) {
+    display: none;
+  }
 `
 const Option = styled.option`
   
@@ -99,6 +156,9 @@ const SearchBar = styled.input`
   color: #41558D;
   &::placeholder{
     color: #A8B1CB;
+  }
+  @media (max-width: 768px) {
+    width: 272px;
   }
 `
 const PlanCardsContainer = styled.div`
@@ -121,6 +181,9 @@ const PaginationIndicatorsContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 const PaginationIndicators = styled.div`
   min-width: 234px;
@@ -150,7 +213,7 @@ const ArrowBtn = styled.button`
 
 const PlanCards = [
   {
-    planName: "Dhairyadev & Sayali’s Retirement Plan",
+    planName: "Dhairyadev & Sayali’s Vacation Plan",
     image: couple,
     goalProgress: "₹ 11,24,00,000",
     goalAmount: "₹ 15,00,00,000",
@@ -168,7 +231,7 @@ const PlanCards = [
     pointerPosition: 83.6
   },
   {
-    planName: "Dhairyadev & Sayali’s Emergency Plan",
+    planName: "Dhairyadev & Sayali’s Vacation Plan",
     image: couple,
     goalProgress: "₹ 2,70,00,000",
     goalAmount: "₹ 5,00,00,000",
@@ -186,7 +249,7 @@ const PlanCards = [
     pointerPosition: 57.6
   },
   {
-    planName: "Dhairyadev & Sayali’s Wedding Plan",
+    planName: "Dhairyadev & Sayali’s Vacation Plan",
     image: couple,
     goalProgress: "₹ 42,00,000",
     goalAmount: "₹ 1,00,00,000",
@@ -222,7 +285,7 @@ const PlanCards = [
     pointerPosition: 32.9
   },
   {
-    planName: "Dhairyadev & Sayali’s Education Plan",
+    planName: "Dhairyadev & Sayali’s Vacation Plan",
     image: couple,
     goalProgress: "₹ 11,24,00,000",
     goalAmount: "₹ 15,00,00,000",
@@ -255,6 +318,7 @@ const Plans = () => {
               <Option value="low-to-high">Progress (Low to High)</Option>
             </SortBy>
             <SearchBar type='search' name='search' placeholder='Search' />
+            <FiltersMobile><FilterMobile /></FiltersMobile>
           </SortByContainer>
         </FiltersAndSearchBarContainer>
       </HeadingAndFiltersContainer>

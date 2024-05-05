@@ -1,6 +1,7 @@
 import styled from "@emotion/styled/macro";
 import NavBar from "./components/navbar/NavBar";
 import HomePage from "./pages/HomePage";
+import { useState } from "react";
 
 const AppContainer = styled.div`
   display: flex;
@@ -8,10 +9,13 @@ const AppContainer = styled.div`
 `
 
 function App() {
+
+  const [isMobileNavVisible, setIsMobileNavVisible] = useState(false)
+
   return (
     <AppContainer>
-      <NavBar />
-      <HomePage />
+      <NavBar isMobileNavVisible={isMobileNavVisible} setIsMobileNavVisible={setIsMobileNavVisible} />
+      <HomePage isMobileNavVisible={isMobileNavVisible} setIsMobileNavVisible={setIsMobileNavVisible} />
     </AppContainer>
   );
 }

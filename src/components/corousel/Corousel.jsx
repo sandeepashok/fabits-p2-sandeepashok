@@ -8,6 +8,7 @@ import left from "../../assets/corousel/corousel-nav.svg";
 import right from "../../assets/corousel/corousel-nav2.svg";
 import CorouselCard from "./CorouselCard";
 import { useEffect, useRef, useState } from "react";
+import { useWindowWidth } from "@react-hook/window-size";
 
 const CorouselContainer = styled.div`
   height: 224px;
@@ -22,6 +23,14 @@ const CorouselContainer = styled.div`
   flex-direction: row;
   overflow: hidden;
   position: relative;
+  @media (max-width: 768px) {
+   flex-direction : column;
+   height: auto;
+   margin: 0;
+   padding: 0;
+   border-radius: 0%;
+   box-shadow: none;
+  }
 `
 const CorouselCardsContainer = styled.div`
   display: flex;
@@ -30,6 +39,9 @@ const CorouselCardsContainer = styled.div`
   overflow: hidden;
   position: relative;
   margin-left: 32px;
+  @media (max-width: 768px) {
+    margin: 0;
+  }
 `
 
 const CorouselCardExtContainer = styled.div`
@@ -38,6 +50,9 @@ const CorouselCardExtContainer = styled.div`
   margin: 16px;
   border-radius: 16px;
   cursor: pointer;
+  @media (max-width: 768px) {
+    margin: 0px 16px 24px 16px;
+  }
 `
 
 const CorouselInfo = styled.div`
@@ -46,6 +61,9 @@ const CorouselInfo = styled.div`
   justify-content: flex-start;
   text-align: start;
   margin: 32px 0 0 32px;
+  @media (max-width: 768px) {
+    margin: 24px 16px;
+  }
 `
 
 const Heading = styled.b`
@@ -64,6 +82,9 @@ const SubHeading = styled.p`
 
 const BgImgContainer = styled.div`
   margin: 6px 0 0 30px;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 
 const BgImage = styled.img`
@@ -209,6 +230,9 @@ const Corousel = () => {
 
   const cardContainer = useRef(null)
   const [isCorouselInfoVisible, setIsCorouselInfoVisible] = useState(true);
+  const [touchStartX, setTouchStartX] = useState(null);
+  const [touchEndX, setTouchEndX] = useState(null);
+  const screenWidth = useWindowWidth();
 
   useEffect(() => {
     const handleKeys = (e) => {
@@ -259,16 +283,53 @@ const Corousel = () => {
     }
   }
 
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    setTouchEndX(e.changedTouches[0].clientX);
+  };
+
+  const handleSwipe = () => {
+    if (touchStartX && touchEndX) {
+      const diff = touchStartX - touchEndX;
+      if (diff > 0) {
+        handleRightArrow();
+      } else if (diff < 0) {
+        handleLeftArrow();
+      }
+    }
+    setTouchStartX(null);
+    setTouchEndX(null);
+  };
+
   return (
     <CorouselContainer>
-      {isCorouselInfoVisible ? <CorouselInfo>
-        <Heading>What financial goal do you want to plan today?</Heading>
-        <SubHeading>Select a goal to start planning</SubHeading>
-        <BgImgContainer>
-          <BgImage src={noteStack} alt="Note stack add" />
-        </BgImgContainer>
-      </CorouselInfo> : <></>}
-      <CorouselCardsContainer ref={cardContainer} onScroll={handleScroll}>
+      {screenWidth > 768
+        ? isCorouselInfoVisible
+          ? <CorouselInfo>
+            <Heading>What financial goal do you want to plan today?</Heading>
+            <SubHeading>Select a goal to start planning</SubHeading>
+            <BgImgContainer>
+              <BgImage src={noteStack} alt="Note stack add" />
+            </BgImgContainer>
+          </CorouselInfo>
+          : null
+        : <CorouselInfo>
+          <Heading>What financial goal do you want to plan today?</Heading>
+          <SubHeading>Select a goal to start planning</SubHeading>
+          <BgImgContainer>
+            <BgImage src={noteStack} alt="Note stack add" />
+          </BgImgContainer>
+        </CorouselInfo>}
+      <CorouselCardsContainer
+        ref={cardContainer}
+        onScroll={handleScroll}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchEnd}
+        onTouchEnd={handleSwipe}
+      >
         {corouselPlanCards.map((cardInfo, i) => <CorouselCardExtContainer key={cardInfo.id} onClick={() => handleCardClick(i)}>
           <CorouselCard cardInfo={cardInfo} />
         </CorouselCardExtContainer>)}

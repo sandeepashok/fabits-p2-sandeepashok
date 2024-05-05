@@ -1,6 +1,8 @@
 import styled from "@emotion/styled/macro";
 import { ReactComponent as Bulb } from "../../assets/plans/bulb.svg"
 import { ReactComponent as Bolt } from "../../assets/plans/bolt.svg"
+import vacation from "../../assets/corousel/vacation.svg"
+import { useWindowWidth } from "@react-hook/window-size";
 
 const PlanCardContainer = styled.div`
   width: 336px;
@@ -12,12 +14,19 @@ const PlanCardContainer = styled.div`
   &:hover{
     box-shadow: 0px 4px 8px rgba(36, 47, 78, 0.12);
   }
+  @media (max-width: 768px) {
+    width: 328px;
+  }
 `
 const NameAndDpContainer = styled.div`
   display: flex;
   padding: 24px 0;
   margin: 0 24px;
   border-bottom: 1px solid #D3DBEC;
+  @media (max-width: 768px) {
+    justify-content: center;
+    align-items: center;
+  }
 `
 const DpContainer = styled.div`
   display: flex;
@@ -28,12 +37,21 @@ const DpContainer = styled.div`
   border: 1px solid #D9D9D9;
   background-color: ${({ bg }) => bg};
   border-radius: 8px;
+  @media (max-width: 768px) {
+    border-radius: 50%;
+    height: 54px;
+    width: 54px;
+  }
 `
 
 const Dp = styled.img`
   height: 52px;
   width: 52px;
   border-radius: 10px;
+  @media (max-width: 768px) {
+    height: 100%;
+    width: 100%;
+  }
 `
 const PlanName = styled.b`
   width: 200px;
@@ -164,7 +182,7 @@ const Notification = styled.p`
   width: 288px;
 `
 
-const Boost = styled.button`
+const BoostCta = styled.button`
   height: 40px;
   width: 288px;
   margin-top: 24px;
@@ -185,7 +203,7 @@ const Boost = styled.button`
   }
 `
 
-const BoostMobile = styled.button`
+const BoostMobileCta = styled.button`
 height: 40px;
   width: 288px;
   margin-top: 24px;
@@ -215,6 +233,8 @@ const PlanCard = ({ cardData }) => {
     isBoostRequired
   } = cardData;
 
+  let screenWidth = useWindowWidth()
+
   const splitStatus = status.split(" ").reduce((acc, word, i, arr) => {
     if (!isNaN(Number(word)) || word === "months") {
       acc.middle.push(word);
@@ -238,7 +258,7 @@ const PlanCard = ({ cardData }) => {
     <PlanCardContainer onClick={() => { window.open(url, '_blank') }} >
       <NameAndDpContainer>
         <DpContainer bg={secondaryColor}>
-          <Dp src={image} alt="Display picture" />
+          <Dp src={screenWidth > 768 ? image : vacation} alt="Display picture" />
         </DpContainer>
         <PlanName>{planName}</PlanName>
       </NameAndDpContainer>
@@ -288,8 +308,8 @@ const PlanCard = ({ cardData }) => {
             <BoostNotification pri={primaryColor}>
               <Notification><Bulb /><Span>Boost</Span>to reach your goal sooner!</Notification>
             </BoostNotification>
-            <Boost>Boost</Boost>
-            <BoostMobile><Bolt /> Boost</BoostMobile>
+            <BoostCta>Boost</BoostCta>
+            <BoostMobileCta><Bolt /> Boost</BoostMobileCta>
           </BoostPlanContainer>
           : <></>
       }

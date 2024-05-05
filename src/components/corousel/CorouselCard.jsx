@@ -16,6 +16,11 @@ const CorouselCardContainer = styled.div`
     border: 1px solid #D3DBEC;
     box-shadow: 0px 4px 8px rgba(36, 47, 78, 0.12);
   }
+  @media (max-width: 768px) {
+    height: 159px;
+    width: 159px;
+    border: 1px solid #D3DBEC;
+  }
 `
 
 const CardInnerContainer = styled.div`
