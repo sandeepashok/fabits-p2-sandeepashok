@@ -12,6 +12,7 @@ const NavbarMobileContainer = styled.div`
     height: 64px;
     margin-bottom: 16px;
     background-color: #FFFFFF;
+    border-bottom: 1px solid #E3E3E3;
   }
 `
 const IconsContainer = styled.div`
