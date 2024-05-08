@@ -199,7 +199,7 @@ const PaginationInfo = styled.p`
 ;
 `
 const InfoSpan = styled.span`
-  color: #2D2D2D
+  color: #2D2D2D;
 `
 
 const ArrowBtn = styled.button`
